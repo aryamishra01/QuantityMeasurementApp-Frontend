@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard - Quantity Measurement</title>
+        <link rel="stylesheet" href="./Css/DashBoard.css">
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="brand">
+                <h1>Quantity Measurement</h1>
+                <p class="subtitle">Measure. Convert. Compare.</p>
+            </div>
+            <div class="profile">
+                <div class="user-info">
+                    <div id="userName">Guest</div>
+                    <div id="userEmail" class="muted">not signed in</div>
+                </div>
+                <button id="logoutBtn" class="btn-ghost">Logout</button>
+            </div>
+        </header>
+
+    <main class="dashboard">
+        <section class="types">
+            <h3>Measurement Types</h3>
+            <div class="type-grid">
+                <button class="type-card active" data-type="LENGTH">
+                  <div class="icon">📏</div>
+                  <div class="label">Length</div>
+                </button>
+
+                <button class="type-card" data-type="WEIGHT">
+                  <div class="icon">⚖️</div>
+                  <div class="label">Weight</div>
+                </button>
+
+                <button class="type-card" data-type="TEMPERATURE">
+                  <div class="icon">🌡️</div>
+                  <div class="label">Temperature</div>
+                </button>
+
+                <button class="type-card" data-type="VOLUME">
+                  <div class="icon">🧴</div>
+                  <div class="label">Volume</div>
+                </button>
+            </div>
+        </section>
+
+        <section class="controls">
+            <div class="actions">
+                <button class="action-btn active" data-action="COMPARE">Compare</button>
+                <button class="action-btn" data-action="CONVERT">Convert</button>
+                <button class="action-btn" data-action="ADD">Add</button>
+            </div>
+
+            <div class="inputs">
+                <div class="input-box">
+                    <input type="number" id="val1" placeholder="Value 1">
+                    <select id="unit1"></select>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="val2" placeholder="Value 2">
+                    <select id="unit2"></select>
+                </div>
+                <div class="calc-wrap">
+                    <button id="calculateBtn" class="btn-primary">Calculate</button>
+                </div>
+            </div>
+
+            <div class="result">
+                <h2 id="resultDisplay">Result: --</h2>
+            </div>
+        </section>
+<!-- 
+        <section class="inputs">
+            <div class="input-box">
+                <input type="number" id="val1" placeholder="Value 1">
+                <select id="unit1">
+                    <option value="KILOMETER">Kilometer</option>
+                    <option value="METER">Meter</option>
+                    <option value="FEET">Feet</option>
+                    <option value="INCHES">Inches</option>
+                    <option value="CENTIMETER">Centimeter</option>
+                </select>
+            </div>
+
+            <div class="input-box">
+                <input type="number" id="val2" placeholder="Value 2">
+                <select id="unit2">
+                    <option value="METER">Meter</option>
+                    <option value="KILOMETER">Kilometer</option>
+                    <option value="FEET">Feet</option>
+                    <option value="INCHES">Inches</option>
+                    <option value="CENTIMETER">Centimeter</option>
+                </select>
+            </div>
+        </section>
+        
+        <section class="result">
+             <h2 id="resultDisplay">Result: --</h2>
+        </section> -->
+
+    </main>   
+    <script src="./Js/dashboard.js"></script>
+    </body>
+</html>

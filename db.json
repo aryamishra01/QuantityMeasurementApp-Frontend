@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "name": "Arya Mishra",
+      "email": "aryaamishra0001@gmail.com",
+      "password": "Arya@24",
+      "mobile": "8839526091",
+      "id": "N8nMmBgTuIQ"
+    },
+    {
+      "name": "Bhumi",
+      "email": "bhumi123@gmail.com",
+      "password": "Bhumi@15",
+      "mobile": "9538265489",
+      "id": "YbZ0udsPC-E"
+    },
+    {
+      "name": "Arya Mishra",
+      "email": "aryaamishra@gmail.com",
+      "password": "Arya@24",
+      "mobile": "8839526091",
+      "id": "KINOcsS"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

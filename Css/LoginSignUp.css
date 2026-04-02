@@ -1,0 +1,76 @@
+:root{
+  --bg:#f3f4f6;
+  --card:#ffffff;
+  --accent:#ef4444; /* red */
+  --muted:#6b7280;
+  --input-border:#e5e7eb;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg,#fff 0%, var(--bg) 100%);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{
+  display:flex;
+  width:920px;
+  max-width:96%;
+  margin:64px auto;
+  background:var(--card);
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(17,24,39,0.08);
+  overflow:hidden;
+}
+
+.left{
+  flex:1.1;
+  background:linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.02));
+  padding:36px 28px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+.left h2{margin:0;color:var(--accent);font-size:20px}
+.left img{border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+
+.right{
+  flex:1;
+  padding:32px;
+}
+
+.tabs{display:flex;gap:12px;margin-bottom:18px}
+.tabs span{cursor:pointer;padding:10px 14px;border-radius:8px;color:var(--muted)}
+.tabs .active{background:rgba(239,68,68,0.08);color:var(--accent);font-weight:600}
+
+form{width:100%}
+input[type='text'],input[type='email'],input[type='password']{
+  display:block;width:100%;margin:8px 0;padding:12px 14px;border-radius:8px;border:1px solid var(--input-border);outline:none;transition:box-shadow .18s, border-color .18s
+}
+input:focus{box-shadow:0 6px 18px rgba(59,130,246,0.06);border-color:#93c5fd}
+
+.password-row{position:relative}
+.password-row input{padding-right:72px}
+.show-pass{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);border-radius:8px;border:none;background:transparent;padding:6px 10px;color:var(--accent);cursor:pointer;font-weight:600;opacity:0.9;display:inline-flex;align-items:center;gap:6px;transition:transform .18s, opacity .18s, background .18s
+}
+.show-pass:hover{background:rgba(239,68,68,0.06)}
+.password-row.focused .show-pass{transform:translateY(-50%) scale(1.02);opacity:1}
+
+button[type='submit']{width:100%;padding:12px;border-radius:10px;background:var(--accent);color:#fff;border:none;font-weight:700;margin-top:10px;cursor:pointer;box-shadow:0 6px 18px rgba(239,68,68,0.12)}
+
+.remember{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.message{min-height:20px;margin-top:8px;font-size:13px}
+.hidden{display:none}
+
+@media (max-width:720px){
+  .container{flex-direction:column;margin:20px}
+  .left{order:2;padding:18px}
+  .right{order:1;padding:20px}
+}

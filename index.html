@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Page - Quantity Measurement</title>
+  <link rel="stylesheet" href="./Css/LoginSignUp.css">
+</head>
+<body>
+<div class="container">
+  <div class="left">
+    <h2>Quantity Measurement App</h2>
+    <img src="Assets/triple-beam-balance.png" alt="logo" width="150" height="100">
+  </div>
+
+  <div class="right">
+    <div class="tabs">
+      <span id="loginTab" class="active">LOGIN</span>
+      <span id="signupTab">SIGNUP</span>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <input type="email" id="loginEmail" placeholder="Email" required aria-label="Email">
+      <div class="password-row">
+        <input type="password" id="loginPassword" placeholder="Password" required aria-label="Password">
+        <button type="button" class="show-pass" data-target="loginPassword">Show</button>
+      </div>
+      <label class="remember"><input type="checkbox" id="rememberMe"> Remember me</label>
+      <div id="loginMessage" class="message" aria-live="polite"></div>
+      <button type="submit">Login</button>
+    </form>
+
+    <form id="signupForm" class="hidden" novalidate>
+      <input type="text" id="name" placeholder="Full Name" required aria-label="Full name">
+      <input type="email" id="email" placeholder="Email" required aria-label="Email">
+      <div class="password-row">
+        <input type="password" id="password" placeholder="Password" required aria-label="Password">
+        <button type="button" class="show-pass" data-target="password">Show</button>
+      </div>
+      <input type="text" id="mobile" placeholder="Mobile Number" required aria-label="Mobile">
+      <div id="signupMessage" class="message" aria-live="polite"></div>
+      <button type="submit">Signup</button>
+    </form>
+  </div>
+</div>
+
+<script src="./Js/auth.js"></script>
+</body>
+</html>
