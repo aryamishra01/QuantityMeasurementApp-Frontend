@@ -1,0 +1,58 @@
+<div class="profile-page">
+  <app-navbar></app-navbar>
+  <div class="profile-shell">
+    <header class="profile-hero">
+      <div>
+        <span class="eyebrow">My Profile</span>
+        <h1>Account information and role details</h1>
+        <p>Learn more about your current user profile and fallback data stored locally when backend data is unavailable.</p>
+      </div>
+    </header>
+
+    <section class="profile-card">
+      <div class="card-header">
+        <div>
+          <p class="eyebrow">Profile Overview</p>
+          <h2>{{ displayName }}</h2>
+          <p class="subtext">@{{ userName }}</p>
+        </div>
+
+        <div class="status-pill" *ngIf="!loading && !errorMessage">Active</div>
+      </div>
+
+      <div class="profile-body">
+        <div class="profile-grid">
+          <div class="profile-item">
+            <span>Email</span>
+            <strong>{{ userEmail }}</strong>
+          </div>
+          <div class="profile-item">
+            <span>User ID</span>
+            <strong>{{ user?.id ?? '—' }}</strong>
+          </div>
+          <div class="profile-item">
+            <span>Source</span>
+            <strong>{{ user ? 'Backend' : (fallback.fullName || fallback.username ? 'Local storage' : 'Not available') }}</strong>
+          </div>
+          <div class="profile-item">
+            <span>Roles</span>
+            <strong>{{ userRoles.length ? userRoles.join(', ') : 'None assigned' }}</strong>
+          </div>
+        </div>
+
+        <div class="profile-meta">
+          <div class="meta-box">
+            <h3>Loading state</h3>
+            <p>{{ loading ? 'Fetching profile from backend…' : 'Ready to show account details.' }}</p>
+          </div>
+          <div class="meta-box">
+            <h3>Error state</h3>
+            <p>{{ errorMessage || 'No errors detected.' }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="alert error-alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </div>
+</div>
