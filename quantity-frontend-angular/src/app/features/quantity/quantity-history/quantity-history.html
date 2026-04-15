@@ -1,0 +1,164 @@
+<div class="history-page">
+  <app-navbar></app-navbar>
+  <div class="history-shell">
+    <header class="history-hero">
+      <div>
+        <span class="eyebrow">Quantity History</span>
+        <h1>Review past quantity operations and monitor failed measurements.</h1>
+        <p>Browse operation history, measurement-type history, errored entries, and operation counts provided by the backend.</p>
+      </div>
+      <button type="button" class="ghost-btn" (click)="refreshAll()" [disabled]="loadingOperation || loadingType || loadingErrored || loadingCounts">Refresh all</button>
+    </header>
+
+    <section class="card-grid card-grid--three">
+      <article class="stat-card">
+        <p class="stat-label">Compare</p>
+        <span class="stat-value">{{ countByOperation.compare !== null ? countByOperation.compare : '–' }}</span>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Convert</p>
+        <span class="stat-value">{{ countByOperation.convert !== null ? countByOperation.convert : '–' }}</span>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Add / Subtract / Divide</p>
+        <span class="stat-value">{{ countByOperation.add !== null && countByOperation.subtract !== null && countByOperation.divide !== null ? (countByOperation.add + countByOperation.subtract + countByOperation.divide) : '–' }}</span>
+      </article>
+    </section>
+
+    <section class="history-section">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">History By Operation</span>
+          <h2>{{ selectedOperation | titlecase }} History</h2>
+          <p>Select an operation and review the backend response history for that operation.</p>
+        </div>
+        <select class="pill-select" [(ngModel)]="selectedOperation" (ngModelChange)="loadHistoryByOperation()">
+          <option *ngFor="let operation of operations" [value]="operation">{{ operation | titlecase }}</option>
+        </select>
+      </div>
+
+      <div class="section-body">
+        <div class="section-messages">
+          <div class="alert error-alert" *ngIf="errorOperation">{{ errorOperation }}</div>
+          <div class="alert info-alert" *ngIf="!errorOperation && !loadingOperation && historyByOperation.length === 0">No history exists for this operation yet.</div>
+        </div>
+
+        <div class="table-wrapper" *ngIf="loadingOperation">
+          <div class="loading-block">Loading operation history…</div>
+        </div>
+
+        <table class="history-table" *ngIf="!loadingOperation && historyByOperation.length > 0">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Result</th>
+              <th>This</th>
+              <th>That</th>
+              <th>Error</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of historyByOperation">
+              <td>{{ item.operation || '-' }}</td>
+              <td>{{ item.resultValue ?? '-' }} {{ item.resultUnit || '' }}</td>
+              <td>{{ item.thisValue ?? '-' }} {{ item.thisUnit || '' }}</td>
+              <td>{{ item.thatValue ?? '-' }} {{ item.thatUnit || '' }}</td>
+              <td>{{ item.error ? 'Yes' : 'No' }}</td>
+              <td>{{ item.createdAt || 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">History By Measurement Type</span>
+          <h2>{{ selectedMeasurementType }} History</h2>
+          <p>Filter history by measurement type and inspect the corresponding backend records.</p>
+        </div>
+        <select class="pill-select" [(ngModel)]="selectedMeasurementType" (ngModelChange)="loadHistoryByType()">
+          <option *ngFor="let type of measurementTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="section-body">
+        <div class="section-messages">
+          <div class="alert error-alert" *ngIf="errorType">{{ errorType }}</div>
+          <div class="alert info-alert" *ngIf="!errorType && !loadingType && historyByType.length === 0">No history exists for this measurement type yet.</div>
+        </div>
+
+        <div class="table-wrapper" *ngIf="loadingType">
+          <div class="loading-block">Loading measurement type history…</div>
+        </div>
+
+        <table class="history-table" *ngIf="!loadingType && historyByType.length > 0">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Result</th>
+              <th>This</th>
+              <th>That</th>
+              <th>Error</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of historyByType">
+              <td>{{ item.operation || '-' }}</td>
+              <td>{{ item.resultValue ?? '-' }} {{ item.resultUnit || '' }}</td>
+              <td>{{ item.thisValue ?? '-' }} {{ item.thisUnit || '' }}</td>
+              <td>{{ item.thatValue ?? '-' }} {{ item.thatUnit || '' }}</td>
+              <td>{{ item.error ? 'Yes' : 'No' }}</td>
+              <td>{{ item.createdAt || 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Errored History</span>
+          <h2>Failed Quantity Records</h2>
+          <p>Review operations that returned an error response from the backend.</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <div class="section-messages">
+          <div class="alert error-alert" *ngIf="errorErrored">{{ errorErrored }}</div>
+          <div class="alert info-alert" *ngIf="!errorErrored && !loadingErrored && erroredHistory.length === 0">No errored records found.</div>
+        </div>
+
+        <div class="table-wrapper" *ngIf="loadingErrored">
+          <div class="loading-block">Loading errored history…</div>
+        </div>
+
+        <table class="history-table" *ngIf="!loadingErrored && erroredHistory.length > 0">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Error Message</th>
+              <th>This</th>
+              <th>That</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of erroredHistory">
+              <td>{{ item.operation || '-' }}</td>
+              <td>{{ item.errorMessage || '-' }}</td>
+              <td>{{ item.thisValue ?? '-' }} {{ item.thisUnit || '' }}</td>
+              <td>{{ item.thatValue ?? '-' }} {{ item.thatUnit || '' }}</td>
+              <td>{{ item.createdAt || 'N/A' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
